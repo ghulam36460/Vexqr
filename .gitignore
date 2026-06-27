@@ -7,9 +7,14 @@ dist/
 .DS_Store
 coverage/
 *.tsbuildinfo
+
+# Editor / OS cruft
+*.swp
+*.swo
+*~
 data/
 audit/*.jsonl
-.sentinel/
+.aegix/
 
 # Python
 __pycache__/
@@ -20,7 +25,7 @@ build/
 .venv/
 venv/
 
-# Native accelerator build artifacts (built from pycore/src/sentinel/accel)
+# Native accelerator build artifacts (built from pycore/src/aegix/accel)
 *.so
 *.dylib
 *.dll
@@ -29,4 +34,4 @@ venv/
 # Java performance layer build artifacts
 *.jar
 *.class
-pycore/src/sentinel/perf/out/
+pycore/src/aegix/perf/out/

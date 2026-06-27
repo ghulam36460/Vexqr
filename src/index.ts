@@ -1,11 +1,11 @@
 /**
  * Public entry point — assembles all layers into a ready-to-run platform.
  *
- * This is the wiring/composition root. Construct a Sentinel with a config and
+ * This is the wiring/composition root. Construct a Aegix with a config and
  * a set of host callbacks (confirmation + human gate), then call run(goal).
  */
 
-import { loadConfig, type SentinelConfig } from './core/config.js';
+import { loadConfig, type AegixConfig } from './core/config.js';
 import { Orchestrator } from './core/orchestrator.js';
 import { TaskRouter } from './router/router.js';
 import { McpRegistry } from './mcp/registry.js';
@@ -21,8 +21,8 @@ import type { ResultObject, SourceClient } from './core/types.js';
 export * from './core/types.js';
 export { loadConfig } from './core/config.js';
 
-export interface SentinelOptions {
-  config?: SentinelConfig;
+export interface AegixOptions {
+  config?: AegixConfig;
   client?: SourceClient;
   dryRun?: boolean;
   /** Ask a human to confirm running a community/experimental MCP server. */
@@ -34,12 +34,12 @@ export interface SentinelOptions {
   adapter?: ClientAdapter;
 }
 
-export class Sentinel {
-  readonly config: SentinelConfig;
+export class Aegix {
+  readonly config: AegixConfig;
   private readonly orchestrator: Orchestrator;
   private readonly mcpEngine: McpEngine;
 
-  constructor(opts: SentinelOptions = {}) {
+  constructor(opts: AegixOptions = {}) {
     this.config = opts.config ?? loadConfig();
     if (opts.dryRun !== undefined) this.config.dryRun = opts.dryRun;
 

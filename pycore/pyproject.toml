@@ -3,8 +3,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "sentinel-core"
-version = "0.2.0"
+name = "aegix-core"
+version = "2.0.0"
 description = "AI-Supervised Cybersecurity Tool Orchestration Platform — Python core. Supported by TypeScript, C, and Assembly adapters/accelerators, with Java used alongside for high-throughput, cross-platform performance-critical paths. Installable via pip or bun (workspace tooling)."
 readme = "README.md"
 license = { text = "MIT" }
@@ -22,7 +22,7 @@ dependencies = [
 [project.optional-dependencies]
 accel = [
   "cffi>=1.16",      # load the C/Assembly fast-path shared library
-  "jpype1>=1.5",     # bridge to the Java 26 performance layer
+  "jpype1>=1.5",     # bridge to the Java performance layer
 ]
 mcp = [
   "mcp>=1.2",        # official Model Context Protocol SDK (Python)
@@ -33,10 +33,10 @@ dev = [
 ]
 
 [project.scripts]
-sentinel = "sentinel.cli:main"
+aegix = "aegix.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/sentinel"]
+packages = ["src/aegix"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

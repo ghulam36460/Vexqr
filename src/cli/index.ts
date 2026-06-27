@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * Sentinel CLI.
+ * Aegix CLI.
  *
  * Usage:
- *   sentinel run "<goal>" --target <host> [--dry-run] [--client <id>]
+ *   aegix run "<goal>" --target <host> [--dry-run] [--client <id>]
  *                         [--yes] [--demo-loop <tool>] [--verbose]
- *   sentinel registry
+ *   aegix registry
  *
  * The CLI is the reference host application: it wires human confirmation /
  * escalation to interactive stdin prompts.
@@ -13,7 +13,7 @@
 
 import { createInterface } from 'node:readline/promises';
 import { stdin, stdout } from 'node:process';
-import { Sentinel } from '../index.js';
+import { Aegix } from '../index.js';
 import { loadConfig } from '../core/config.js';
 import { McpRegistry } from '../mcp/registry.js';
 import { setLogLevel } from '../util/logger.js';
@@ -77,14 +77,14 @@ function wireLiveLog(): void {
 
 async function cmdRun(args: Args): Promise<void> {
   if (!args.goal) {
-    stdout.write('error: provide a goal, e.g. sentinel run "check if my web app is secure" --target example.test\n');
+    stdout.write('error: provide a goal, e.g. aegix run "check if my web app is secure" --target example.test\n');
     process.exit(1);
   }
   if (args.verbose) setLogLevel('debug');
   wireLiveLog();
 
   const confirm = args.autoYes ? async () => true : prompt;
-  const sentinel = new Sentinel({
+  const app = new Aegix({
     client: args.client,
     dryRun: args.dryRun,
     simulateLoopOn: args.demoLoop,
@@ -97,7 +97,7 @@ async function cmdRun(args: Args): Promise<void> {
   });
 
   stdout.write(`\nGoal: "${args.goal}"\nTarget: ${args.target}\nMode: ${args.dryRun ? 'DRY-RUN (simulated)' : 'LIVE'}\n`);
-  const result = await sentinel.run(args.goal, args.target);
+  const result = await app.run(args.goal, args.target);
 
   stdout.write(`\n${'='.repeat(60)}\nRESULT (${result.status})\n${'='.repeat(60)}\n`);
   stdout.write(result.summary + '\n\n');
@@ -118,7 +118,7 @@ function cmdRegistry(): void {
 function help(): void {
   stdout.write(
     [
-      'Sentinel — AI-Supervised Cybersecurity Tool Orchestration',
+      'Aegix — AI-Supervised Cybersecurity Tool Orchestration',
       '',
       'Commands:',
       '  run "<goal>" --target <host> [options]   Run a supervised assessment',
@@ -133,8 +133,8 @@ function help(): void {
       '  --verbose, -v       Debug logging',
       '',
       'Examples:',
-      '  sentinel run "check if my web app is secure" --target scanme.nmap.org --dry-run',
-      '  sentinel run "full security assessment" --target scanme.nmap.org --dry-run --demo-loop nmap',
+      '  aegix run "check if my web app is secure" --target scanme.nmap.org --dry-run',
+      '  aegix run "full security assessment" --target scanme.nmap.org --dry-run --demo-loop nmap',
     ].join('\n') + '\n',
   );
 }

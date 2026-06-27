@@ -1,4 +1,4 @@
-# Sentinel platform configuration.
+# Aegix platform configuration.
 # All values are optional; anything omitted falls back to built-in defaults.
 
 defaultMaxTokens: 200000

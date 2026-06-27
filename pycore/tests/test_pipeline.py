@@ -1,9 +1,9 @@
-from sentinel.core.config import DEFAULT_CONFIG
-from sentinel.core.reporter import build_summary, risk_score
-from sentinel.core.types import TaskConstraints, TaskContext, TaskObject, Target
-from sentinel.supervisor.decomposer import TaskDecomposer
-from sentinel.terminal.parser import parse_tool_output
-from sentinel.terminal.simulator import simulate_tool_output
+from aegix.core.config import DEFAULT_CONFIG
+from aegix.core.reporter import build_summary, risk_score
+from aegix.core.types import TaskConstraints, TaskContext, TaskObject, Target
+from aegix.supervisor.decomposer import TaskDecomposer
+from aegix.terminal.parser import parse_tool_output
+from aegix.terminal.simulator import simulate_tool_output
 
 
 def _task(goal: str, max_tokens: int) -> TaskObject:
@@ -54,7 +54,7 @@ def test_decomposer_routes_binary_to_analysis():
 
 
 def test_reporter_risk_score_prioritizes():
-    from sentinel.core.types import Artifact
+    from aegix.core.types import Artifact
 
     arts = [Artifact("cve", "CVE-2021-41773"), Artifact("port", "80")]
     score, label = risk_score(arts)

@@ -1,14 +1,19 @@
 {
-  "name": "sentinel-orchestrator",
-  "version": "0.1.0",
+  "name": "aegix-orchestrator",
+  "version": "2.0.0",
   "description": "AI-Supervised Cybersecurity Tool Orchestration Platform. A pipeline that connects any AI client to security tools (via MCP or PTY terminal automation) and supervises the worker AI in real time. Core is Python, supported by TypeScript, C, and Assembly, with Java used alongside them for performance-critical paths. This package is the TypeScript adapter/orchestration surface. The security layer is owned separately by the security team.",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "sentinel": "dist/cli/index.js"
+    "aegix": "dist/cli/index.js"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsx watch src/cli/index.ts",
@@ -16,7 +21,8 @@
     "demo": "tsx src/cli/index.ts run \"check if my web app at scanme.nmap.org is secure\" --dry-run",
     "test": "node --test --import tsx test/*.test.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build"
   },
   "keywords": [
     "ai",

@@ -1,8 +1,8 @@
-# Sentinel Orchestration Platform — Test & Production Readiness Report
+# Aegix Orchestration Platform — Test & Production Readiness Report
 
 **Date:** June 27, 2026  
 **Tested By:** Claude (automated end-to-end review)  
-**Project:** `sentinel-orchestrator` v0.1.0 / `sentinel-core` v0.2.0  
+**Project:** `aegix-orchestrator` v0.1.0 / `aegix-core` v0.2.0  
 **Test Environment:** Ubuntu 24.04, Python 3.12.3, Node.js 22.22.2
 
 ---
@@ -91,14 +91,14 @@ PORT      STATE SERVICE VERSION
 18080/tcp open  unknown  (Werkzeug/3.1.7 HTTP server detected via fingerprint)
 ```
 
-**Sentinel parser result:**
+**Aegix parser result:**
 ```
 [host]    127.0.0.1
 [port]    18080
 [service] unknown:18080
 ```
 
-**Result:** ✅ Real nmap output parsed correctly into Sentinel artifacts.
+**Result:** ✅ Real nmap output parsed correctly into Aegix artifacts.
 
 ---
 
@@ -143,7 +143,7 @@ Table: users
 
 **sqlmap confirmed:** 3 injection types (boolean blind, time blind, UNION), full table dump successful. Total requests: 52.
 
-#### Sentinel Parser on sqlmap Output
+#### Aegix Parser on sqlmap Output
 
 The real sqlmap output was fed into `parse_tool_output('sqlmap', raw)`:
 
@@ -152,7 +152,7 @@ The real sqlmap output was fed into `parse_tool_output('sqlmap', raw)`:
 [path]    db:SQLite_masterdb
 ```
 
-**Result:** ✅ Sentinel correctly identifies SQL injection as a critical finding and extracts the database name as a path artifact.
+**Result:** ✅ Aegix correctly identifies SQL injection as a critical finding and extracts the database name as a path artifact.
 
 ---
 
@@ -171,7 +171,7 @@ Unsafe API: strcpy() at 0x00401b20
 Unsafe API: gets() at 0x00401c10
 ```
 
-**Sentinel parser result:**
+**Aegix parser result:**
 ```
 [finding] Suspicious call: system() at 0x00401a3f
 [finding] String reference: "/bin/sh"
@@ -308,7 +308,7 @@ All 5 budget levels tested and verified:
 
 ### Bug: Service Artifact Over-Deduplication
 
-**Location:** `pycore/src/sentinel/terminal/parser.py` (Python) and `src/terminal/parser.ts` (TypeScript)
+**Location:** `pycore/src/aegix/terminal/parser.py` (Python) and `src/terminal/parser.ts` (TypeScript)
 
 **Description:** The nmap parser was creating service artifacts with only the service name as the dedup key (`service:http`). When a host had multiple ports running the same service (e.g., port 80 and 8080 both running `http`), only one artifact was stored. In a 100-port scan where all ports ran `http`, 100 port artifacts were correct but only 1 service artifact was stored instead of 100.
 

@@ -1,14 +1,14 @@
 import asyncio
 
-from sentinel import Sentinel
-from sentinel.core.store import RunRecord, SessionStore
-from sentinel.platform import SentinelOptions
+from aegix import Aegix
+from aegix.core.store import RunRecord, SessionStore
+from aegix.platform import AegixOptions
 
 
 def test_store_records_run_and_artifacts():
     store = SessionStore(":memory:")
-    sentinel = Sentinel(SentinelOptions(client="custom", dry_run=True, store=store))
-    result = asyncio.run(sentinel.run("check if my web app is secure", "scanme.nmap.org"))
+    app = Aegix(AegixOptions(client="custom", dry_run=True, store=store))
+    result = asyncio.run(app.run("check if my web app is secure", "scanme.nmap.org"))
 
     runs = store.recent_runs()
     assert len(runs) == 1
@@ -22,10 +22,10 @@ def test_store_records_run_and_artifacts():
 
 def test_store_records_interventions_on_loop():
     store = SessionStore(":memory:")
-    sentinel = Sentinel(
-        SentinelOptions(client="custom", dry_run=True, simulate_loop_on="nmap", store=store)
+    app = Aegix(
+        AegixOptions(client="custom", dry_run=True, simulate_loop_on="nmap", store=store)
     )
-    result = asyncio.run(sentinel.run("full security assessment", "scanme.nmap.org"))
+    result = asyncio.run(app.run("full security assessment", "scanme.nmap.org"))
     detail = store.run_detail(result.task_id)
     # The forced loop must have produced at least one supervisor intervention.
     interventions = store._conn.execute(

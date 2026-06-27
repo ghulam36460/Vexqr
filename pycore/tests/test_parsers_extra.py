@@ -1,6 +1,6 @@
-from sentinel.terminal.parser import parse_tool_output
-from sentinel.terminal.simulator import simulate_tool_output
-from sentinel.util.ids import fnv1a
+from aegix.terminal.parser import parse_tool_output
+from aegix.terminal.simulator import simulate_tool_output
+from aegix.util.ids import fnv1a
 
 
 def test_httpx_parses_urls_and_tech():

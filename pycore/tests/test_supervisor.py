@@ -1,8 +1,8 @@
-from sentinel.core.types import Artifact, ToolCall
-from sentinel.supervisor.loop_detector import LoopDetector
-from sentinel.supervisor.progress_scorer import ProgressScorer
-from sentinel.supervisor.state import create_state, merge_artifacts, record_call
-from sentinel.supervisor.token_budget import TokenBudgetManager
+from aegix.core.types import Artifact, ToolCall
+from aegix.supervisor.loop_detector import LoopDetector
+from aegix.supervisor.progress_scorer import ProgressScorer
+from aegix.supervisor.state import create_state, merge_artifacts, record_call
+from aegix.supervisor.token_budget import TokenBudgetManager
 
 
 def _call(tool: str, host: str) -> ToolCall:

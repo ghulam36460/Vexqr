@@ -10,7 +10,7 @@
  */
 
 import type { Phase, TaskObject } from '../core/types.js';
-import type { SentinelConfig } from '../core/config.js';
+import type { AegixConfig } from '../core/config.js';
 
 export interface PlanNode {
   phase: Phase;
@@ -63,7 +63,7 @@ function inferPhases(input: string): Phase[] {
 }
 
 export class TaskDecomposer {
-  constructor(private readonly config: SentinelConfig) {}
+  constructor(private readonly config: AegixConfig) {}
 
   plan(task: TaskObject): PlanNode[] {
     const phases = inferPhases(task.naturalInput);

@@ -24,7 +24,7 @@ export interface SupervisorConfig {
   tokenSafetyMargin: number;
 }
 
-export interface SentinelConfig {
+export interface AegixConfig {
   defaultMaxTokens: number;
   /** Per-phase fraction of the total token budget. Must sum to ~1.0. */
   phaseBudget: Record<string, number>;
@@ -34,7 +34,7 @@ export interface SentinelConfig {
   registryPath: string;
 }
 
-export const DEFAULT_CONFIG: SentinelConfig = {
+export const DEFAULT_CONFIG: AegixConfig = {
   defaultMaxTokens: 200_000,
   phaseBudget: {
     recon: 0.15,
@@ -69,7 +69,7 @@ function deepMerge<T>(base: T, override: Partial<T>): T {
   return out as T;
 }
 
-export function loadConfig(path = 'config/config.yaml'): SentinelConfig {
+export function loadConfig(path = 'config/config.yaml'): AegixConfig {
   const abs = resolve(process.cwd(), path);
   if (!existsSync(abs)) {
     log.warn(`config not found at ${path}, using defaults`);
@@ -77,7 +77,7 @@ export function loadConfig(path = 'config/config.yaml'): SentinelConfig {
   }
   try {
     const raw = readFileSync(abs, 'utf8');
-    const parsed = YAML.parse(raw) as Partial<SentinelConfig>;
+    const parsed = YAML.parse(raw) as Partial<AegixConfig>;
     const merged = deepMerge(DEFAULT_CONFIG, parsed ?? {});
     validate(merged);
     log.info(`loaded config from ${path}`);
@@ -88,7 +88,7 @@ export function loadConfig(path = 'config/config.yaml'): SentinelConfig {
   }
 }
 
-function validate(cfg: SentinelConfig): void {
+function validate(cfg: AegixConfig): void {
   const sum = Object.values(cfg.phaseBudget).reduce((a, b) => a + b, 0);
   if (Math.abs(sum - 1) > 0.01) {
     log.warn(`phaseBudget fractions sum to ${sum.toFixed(2)}, expected ~1.0`);

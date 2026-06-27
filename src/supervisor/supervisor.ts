@@ -26,7 +26,7 @@ import {
   mergeArtifacts,
   type SubAgentState,
 } from './state.js';
-import type { SentinelConfig } from '../core/config.js';
+import type { AegixConfig } from '../core/config.js';
 import type { Artifact, Phase, SourceClient, ToolCall, ToolResult } from '../core/types.js';
 
 export type InterventionKind = 'continue' | 'redirect' | 'wrap_up' | 'stop' | 'advance_phase' | 'escalate';
@@ -48,7 +48,7 @@ export class Supervisor {
   private readonly escalation: EscalationManager;
 
   constructor(
-    private readonly config: SentinelConfig,
+    private readonly config: AegixConfig,
     private readonly client: SourceClient,
     humanGate: HumanGate,
   ) {
