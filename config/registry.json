@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "2",
+  "lastUpdated": "2026-06-26T00:00:00Z",
+  "tools": {
+    "nuclei": {
+      "mcpServer": "ghcr.io/projectdiscovery/nuclei-mcp:latest",
+      "transport": "stdio",
+      "install": { "native": "go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest" },
+      "trustTier": "official",
+      "toolSchemas": [{ "name": "scan" }]
+    },
+    "ghidra": {
+      "mcpServer": "github:bethington/ghidra-mcp@v2.1",
+      "transport": "stdio",
+      "trustTier": "community",
+      "toolSchemas": [{ "name": "analyze" }]
+    },
+    "nmap": {
+      "mcpServer": "ghcr.io/org/nmap-mcp:latest",
+      "transport": "stdio",
+      "install": { "native": "apt install nmap" },
+      "trustTier": "community",
+      "toolSchemas": [{ "name": "scan" }]
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "2",
+  "lastUpdated": "2026-06-27T00:00:00Z",
+  "tools": {
+    "nuclei": {
+      "mcpServer": "ghcr.io/projectdiscovery/nuclei-mcp:latest",
+      "transport": "stdio",
+      "trustTier": "official",
+      "install": { "native": "pip install nuclei-cli" },
+      "toolSchemas": [{ "name": "scan" }]
+    },
+    "ghidra": {
+      "mcpServer": "github:bethington/ghidra-mcp@v2.1",
+      "transport": "stdio",
+      "trustTier": "community",
+      "toolSchemas": [{ "name": "analyze" }]
+    },
+    "nmap": {
+      "mcpServer": "ghcr.io/org/nmap-mcp:latest",
+      "transport": "stdio",
+      "trustTier": "community",
+      "install": { "native": "apt install nmap" },
+      "toolSchemas": [{ "name": "scan" }]
+    },
+    "semgrep": {
+      "mcpServer": "ghcr.io/semgrep/semgrep-mcp:latest",
+      "transport": "stdio",
+      "trustTier": "official",
+      "install": { "native": "pip install semgrep" },
+      "toolSchemas": [{ "name": "scan" }]
+    },
+    "trivy": {
+      "mcpServer": "ghcr.io/aquasecurity/trivy-mcp:latest",
+      "transport": "stdio",
+      "trustTier": "official",
+      "install": { "native": "apt install trivy" },
+      "toolSchemas": [{ "name": "scan" }]
+    },
+    "subfinder": {
+      "mcpServer": "ghcr.io/projectdiscovery/subfinder-mcp:latest",
+      "transport": "stdio",
+      "trustTier": "official",
+      "toolSchemas": [{ "name": "enumerate" }]
+    },
+    "httpx": {
+      "mcpServer": "ghcr.io/projectdiscovery/httpx-mcp:latest",
+      "transport": "stdio",
+      "trustTier": "official",
+      "toolSchemas": [{ "name": "probe" }]
+    }
+  }
+}

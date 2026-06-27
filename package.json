@@ -1,0 +1,41 @@
+{
+  "name": "sentinel-orchestrator",
+  "version": "0.1.0",
+  "description": "AI-Supervised Cybersecurity Tool Orchestration Platform. A pipeline that connects any AI client to security tools (via MCP or PTY terminal automation) and supervises the worker AI in real time. Core is Python, supported by TypeScript, C, and Assembly, with Java used alongside them for performance-critical paths. This package is the TypeScript adapter/orchestration surface. The security layer is owned separately by the security team.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "sentinel": "dist/cli/index.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/cli/index.ts",
+    "start": "node dist/cli/index.js",
+    "demo": "tsx src/cli/index.ts run \"check if my web app at scanme.nmap.org is secure\" --dry-run",
+    "test": "node --test --import tsx test/*.test.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "ai",
+    "cybersecurity",
+    "mcp",
+    "orchestration",
+    "supervisor",
+    "pentest",
+    "automation"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "yaml": "^2.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

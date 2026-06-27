@@ -1,0 +1,32 @@
+node_modules/
+dist/
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+coverage/
+*.tsbuildinfo
+data/
+audit/*.jsonl
+.sentinel/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+.venv/
+venv/
+
+# Native accelerator build artifacts (built from pycore/src/sentinel/accel)
+*.so
+*.dylib
+*.dll
+*.o
+
+# Java performance layer build artifacts
+*.jar
+*.class
+pycore/src/sentinel/perf/out/

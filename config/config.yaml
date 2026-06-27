@@ -1,0 +1,31 @@
+# Sentinel platform configuration.
+# All values are optional; anything omitted falls back to built-in defaults.
+
+defaultMaxTokens: 200000
+
+# Fraction of the total token budget allocated per phase (re-normalized across
+# the phases actually selected for a given goal). Should sum to ~1.0.
+phaseBudget:
+  recon: 0.15
+  enumeration: 0.20
+  vuln_scan: 0.25
+  exploit: 0.20
+  analysis: 0.05
+  post_exploit: 0.05
+  report: 0.10
+
+supervisor:
+  loopThreshold: 3          # consecutive near-identical calls before a loop fires
+  productivityWindow: 5     # calls without a new finding before low-productivity fires
+  loopEscalationLimit: 3    # loop fires on one task before escalating to a human
+  tokenSafetyMargin: 0.15   # reserve 15% of the budget as headroom
+
+# When true, no real tools are installed or executed; output is simulated.
+dryRun: false
+
+# NOTE: The security layer (scope enforcement, risk gating, audit logging) is
+# owned and configured separately by the security team according to their own
+# policies and the laws of the relevant jurisdictions. Its settings are
+# intentionally not defined here.
+
+registryPath: config/registry.json
