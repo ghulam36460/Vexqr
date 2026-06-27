@@ -1,13 +1,13 @@
 import asyncio
 
-from aegix import Aegix
-from aegix.core.store import RunRecord, SessionStore
-from aegix.platform import AegixOptions
+from vexqr import Vexqr
+from vexqr.core.store import RunRecord, SessionStore
+from vexqr.platform import VexqrOptions
 
 
 def test_store_records_run_and_artifacts():
     store = SessionStore(":memory:")
-    app = Aegix(AegixOptions(client="custom", dry_run=True, store=store))
+    app = Vexqr(VexqrOptions(client="custom", dry_run=True, store=store))
     result = asyncio.run(app.run("check if my web app is secure", "scanme.nmap.org"))
 
     runs = store.recent_runs()
@@ -22,8 +22,8 @@ def test_store_records_run_and_artifacts():
 
 def test_store_records_interventions_on_loop():
     store = SessionStore(":memory:")
-    app = Aegix(
-        AegixOptions(client="custom", dry_run=True, simulate_loop_on="nmap", store=store)
+    app = Vexqr(
+        VexqrOptions(client="custom", dry_run=True, simulate_loop_on="nmap", store=store)
     )
     result = asyncio.run(app.run("full security assessment", "scanme.nmap.org"))
     detail = store.run_detail(result.task_id)

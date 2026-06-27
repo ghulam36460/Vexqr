@@ -1,11 +1,11 @@
 # Publishing
 
-Aegix ships two packages that are published to two different registries:
+Vexqr ships two packages that are published to two different registries:
 
 | Package | Registry | Command users run |
 | ------- | -------- | ----------------- |
-| `aegix-core` (Python) | **PyPI** | `pip install aegix-core` |
-| `aegix-orchestrator` (TypeScript) | **npm** (works with bun) | `bun add aegix-orchestrator` / `npm i -g aegix-orchestrator` |
+| `vexqr-core` (Python) | **PyPI** | `pip install vexqr-core` |
+| `vexqr-orchestrator` (TypeScript) | **npm** (works with bun) | `bun add vexqr-orchestrator` / `npm i -g vexqr-orchestrator` |
 
 Both packages are currently at **2.0.0**. Bump the version in **both**
 `pycore/pyproject.toml` and `package.json` before publishing, and tag the release in git.
@@ -31,8 +31,8 @@ then create an API token for each. Configure it in `~/.pypirc` or via the
 
 ### 2. Confirm the package name is available
 
-`aegix-core` must be unique on PyPI. Check https://pypi.org/project/aegix-core/. If
-it is taken, rename the project in `pyproject.toml` (e.g. `aegix-orchestrator-core`)
+`vexqr-core` must be unique on PyPI. Check https://pypi.org/project/vexqr-core/. If
+it is taken, rename the project in `pyproject.toml` (e.g. `vexqr-orchestrator-core`)
 before publishing.
 
 ### 3. Build the distributions
@@ -50,8 +50,8 @@ twine check dist/*          # validates metadata/README rendering
 twine upload --repository testpypi dist/*
 # verify it installs cleanly from TestPyPI in a fresh venv:
 python3 -m venv /tmp/t && source /tmp/t/bin/activate
-pip install -i https://test.pypi.org/simple/ aegix-core
-aegix --help
+pip install -i https://test.pypi.org/simple/ vexqr-core
+vexqr --help
 ```
 
 ### 5. Publish to real PyPI
@@ -64,8 +64,8 @@ twine upload dist/*
 Users can then:
 
 ```bash
-pip install aegix-core
-pip install 'aegix-core[mcp]'     # extras still work
+pip install vexqr-core
+pip install 'vexqr-core[mcp]'     # extras still work
 ```
 
 > Note on native extras: `[accel]` pulls `cffi` and `jpype1`. The published wheel is
@@ -89,9 +89,9 @@ npm login          # or: bun pm whoami  (bun reads the same npm auth)
 
 ### 2. Confirm the package name is available
 
-Check https://www.npmjs.com/package/aegix-orchestrator. If taken, either rename in
+Check https://www.npmjs.com/package/vexqr-orchestrator. If taken, either rename in
 `package.json` or publish under a scope you own (recommended), e.g.
-`@your-org/aegix-orchestrator`.
+`@your-org/vexqr-orchestrator`.
 
 ### 3. Make the published tarball correct
 
@@ -132,10 +132,10 @@ bun publish --access public
 Users can then:
 
 ```bash
-bun add @your-org/aegix-orchestrator
+bun add @your-org/vexqr-orchestrator
 # or install the CLI globally
-npm install -g @your-org/aegix-orchestrator
-aegix run "check if my web app is secure" --dry-run
+npm install -g @your-org/vexqr-orchestrator
+vexqr run "check if my web app is secure" --dry-run
 ```
 
 ---

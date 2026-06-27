@@ -1,6 +1,12 @@
 node_modules/
 dist/
 *.log
+
+# Secrets / credentials (never commit)
+tokens.txt
+.npmrc
+.pypirc
+
 .env
 .env.*
 !.env.example
@@ -14,7 +20,7 @@ coverage/
 *~
 data/
 audit/*.jsonl
-.aegix/
+.vexqr/
 
 # Python
 __pycache__/
@@ -25,7 +31,7 @@ build/
 .venv/
 venv/
 
-# Native accelerator build artifacts (built from pycore/src/aegix/accel)
+# Native accelerator build artifacts (built from pycore/src/vexqr/accel)
 *.so
 *.dylib
 *.dll
@@ -34,4 +40,4 @@ venv/
 # Java performance layer build artifacts
 *.jar
 *.class
-pycore/src/aegix/perf/out/
+pycore/src/vexqr/perf/out/

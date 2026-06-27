@@ -1,7 +1,7 @@
 # Architecture
 
-Aegix is organized as five vertical layers plus a cross-cutting **AI Supervisor**. The
-Python core (`pycore/src/aegix`) and the TypeScript adapter (`src/`) mirror the same
+Vexqr is organized as five vertical layers plus a cross-cutting **AI Supervisor**. The
+Python core (`pycore/src/vexqr`) and the TypeScript adapter (`src/`) mirror the same
 structure so behavior is consistent across both.
 
 ## The five layers
@@ -33,7 +33,7 @@ Cross-cutting:
    `finding`, …) and **deduplicated** by a `kind:value` key.
 6. The **Supervisor (L5)** watches every call in real time (see below).
 7. The **Reporter (`core/`)** prioritizes findings by severity and produces the summary;
-   the run is persisted to `.aegix/sessions.db`.
+   the run is persisted to `.vexqr/sessions.db`.
 
 ## The AI Supervisor (L5)
 
@@ -54,7 +54,7 @@ Runs alongside the worker AI and intervenes without a human:
 ## Native acceleration (optional)
 
 Hot paths (token estimation, fuzzy-signature hashing) have **C + hand-tuned x86-64
-Assembly** fast paths in `pycore/src/aegix/accel`, and a **Java** performance layer in
-`pycore/src/aegix/perf` for high-throughput parallel dispatch. Both are optional:
+Assembly** fast paths in `pycore/src/vexqr/accel`, and a **Java** performance layer in
+`pycore/src/vexqr/perf` for high-throughput parallel dispatch. Both are optional:
 with nothing built, the platform runs in pure Python with identical behavior, just slower
-on those paths. At startup the CLI reports which accelerators loaded (`aegix accel`).
+on those paths. At startup the CLI reports which accelerators loaded (`vexqr accel`).

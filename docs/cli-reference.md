@@ -1,20 +1,20 @@
 # CLI Reference
 
-Both cores ship a CLI. The Python command is `aegix`; the TypeScript command is also
-`aegix` (via `dist/cli/index.js`).
+Both cores ship a CLI. The Python command is `vexqr`; the TypeScript command is also
+`vexqr` (via `dist/cli/index.js`).
 
-## Python CLI (`aegix`)
+## Python CLI (`vexqr`)
 
 ```
-aegix [-h] {run,registry,accel,history,export} ...
+vexqr [-h] {run,registry,accel,history,export} ...
 ```
 
-### `aegix run`
+### `vexqr run`
 
 Run a supervised assessment.
 
 ```
-aegix run [goal] [--target TARGET] [--dry-run] [--client CLIENT]
+vexqr run [goal] [--target TARGET] [--dry-run] [--client CLIENT]
              [--yes|-y] [--demo-loop TOOL] [--verbose|-v]
              [--json] [--db DB] [--no-store]
 ```
@@ -29,23 +29,23 @@ aegix run [goal] [--target TARGET] [--dry-run] [--client CLIENT]
 | `--demo-loop TOOL` | Force `TOOL` to loop, to demonstrate supervisor loop detection. |
 | `--verbose`, `-v` | Debug logging (shows MCP lifecycle, supervisor decisions). |
 | `--json` | Print the result as machine-readable JSON. |
-| `--db DB` | Session store path (default `.aegix/sessions.db`). |
+| `--db DB` | Session store path (default `.vexqr/sessions.db`). |
 | `--no-store` | Do not persist this run. |
 
 Examples:
 
 ```bash
-aegix run "check if my web app is secure" --target scanme.nmap.org --dry-run
-aegix run "help me debug this EXE binary, use Ghidra" --target myapp.exe --dry-run
-aegix run "full security assessment" --target scanme.nmap.org --dry-run --demo-loop nmap -v
-aegix run "full security assessment" --target example.test --dry-run --json
+vexqr run "check if my web app is secure" --target scanme.nmap.org --dry-run
+vexqr run "help me debug this EXE binary, use Ghidra" --target myapp.exe --dry-run
+vexqr run "full security assessment" --target scanme.nmap.org --dry-run --demo-loop nmap -v
+vexqr run "full security assessment" --target example.test --dry-run --json
 ```
 
-### `aegix registry`
+### `vexqr registry`
 
 List the registered MCP tools.
 
-### `aegix accel`
+### `vexqr accel`
 
 Show native accelerator / Java performance-layer status, e.g.:
 
@@ -55,17 +55,17 @@ Native acceleration status:
   Java perf layer      : not present (asyncio fallback)
 ```
 
-### `aegix history`
+### `vexqr history`
 
 Show recent run history from the session store.
 
-### `aegix export`
+### `vexqr export`
 
 Export run history (or a single run) as JSON:
 
 ```bash
-aegix export                 # all runs
-aegix export <task_id>       # one run
+vexqr export                 # all runs
+vexqr export <task_id>       # one run
 ```
 
 ## TypeScript CLI

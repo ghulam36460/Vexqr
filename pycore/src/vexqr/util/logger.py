@@ -39,9 +39,9 @@ def _configure() -> None:
         return
     handler = logging.StreamHandler(sys.stderr)
     handler.setFormatter(_Formatter())
-    root = logging.getLogger("aegix")
+    root = logging.getLogger("vexqr")
     root.addHandler(handler)
-    level = os.environ.get("AEGIX_LOG_LEVEL", "info").lower()
+    level = os.environ.get("VEXQR_LOG_LEVEL", "info").lower()
     root.setLevel(_LEVELS.get(level, logging.INFO))
     root.propagate = False
     _configured = True
@@ -49,9 +49,9 @@ def _configure() -> None:
 
 def set_log_level(level: str) -> None:
     _configure()
-    logging.getLogger("aegix").setLevel(_LEVELS.get(level.lower(), logging.INFO))
+    logging.getLogger("vexqr").setLevel(_LEVELS.get(level.lower(), logging.INFO))
 
 
 def get_logger(scope: str) -> logging.Logger:
     _configure()
-    return logging.getLogger(f"aegix.{scope}")
+    return logging.getLogger(f"vexqr.{scope}")

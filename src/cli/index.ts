@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * Aegix CLI.
+ * Vexqr CLI.
  *
  * Usage:
- *   aegix run "<goal>" --target <host> [--dry-run] [--client <id>]
+ *   vexqr run "<goal>" --target <host> [--dry-run] [--client <id>]
  *                         [--yes] [--demo-loop <tool>] [--verbose]
- *   aegix registry
+ *   vexqr registry
  *
  * The CLI is the reference host application: it wires human confirmation /
  * escalation to interactive stdin prompts.
@@ -13,7 +13,7 @@
 
 import { createInterface } from 'node:readline/promises';
 import { stdin, stdout } from 'node:process';
-import { Aegix } from '../index.js';
+import { Vexqr } from '../index.js';
 import { loadConfig } from '../core/config.js';
 import { McpRegistry } from '../mcp/registry.js';
 import { setLogLevel } from '../util/logger.js';
@@ -77,14 +77,14 @@ function wireLiveLog(): void {
 
 async function cmdRun(args: Args): Promise<void> {
   if (!args.goal) {
-    stdout.write('error: provide a goal, e.g. aegix run "check if my web app is secure" --target example.test\n');
+    stdout.write('error: provide a goal, e.g. vexqr run "check if my web app is secure" --target example.test\n');
     process.exit(1);
   }
   if (args.verbose) setLogLevel('debug');
   wireLiveLog();
 
   const confirm = args.autoYes ? async () => true : prompt;
-  const app = new Aegix({
+  const app = new Vexqr({
     client: args.client,
     dryRun: args.dryRun,
     simulateLoopOn: args.demoLoop,
@@ -118,7 +118,7 @@ function cmdRegistry(): void {
 function help(): void {
   stdout.write(
     [
-      'Aegix — AI-Supervised Cybersecurity Tool Orchestration',
+      'Vexqr — AI-Supervised Cybersecurity Tool Orchestration',
       '',
       'Commands:',
       '  run "<goal>" --target <host> [options]   Run a supervised assessment',
@@ -133,8 +133,8 @@ function help(): void {
       '  --verbose, -v       Debug logging',
       '',
       'Examples:',
-      '  aegix run "check if my web app is secure" --target scanme.nmap.org --dry-run',
-      '  aegix run "full security assessment" --target scanme.nmap.org --dry-run --demo-loop nmap',
+      '  vexqr run "check if my web app is secure" --target scanme.nmap.org --dry-run',
+      '  vexqr run "full security assessment" --target scanme.nmap.org --dry-run --demo-loop nmap',
     ].join('\n') + '\n',
   );
 }

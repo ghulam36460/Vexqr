@@ -15,7 +15,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Literal
 
-from ..core.config import AegixConfig
+from ..core.config import VexqrConfig
 from ..core.events import bus
 from ..core.types import Artifact, Phase, SourceClient, ToolCall, ToolResult
 from .escalation import EscalationManager, EscalationRequest, HumanGate
@@ -37,7 +37,7 @@ class Intervention:
 
 
 class Supervisor:
-    def __init__(self, config: AegixConfig, client: SourceClient, human_gate: HumanGate) -> None:
+    def __init__(self, config: VexqrConfig, client: SourceClient, human_gate: HumanGate) -> None:
         self._config = config
         self._client = client
         self._states: dict[str, SubAgentState] = {}

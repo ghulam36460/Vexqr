@@ -3,17 +3,17 @@
 The Python core is the brain; the heavy, repetitive work is offloaded to faster
 runtimes when they are present:
 
-  * ``libaegix`` — a C shared library (with hand-tuned Assembly inner loops)
+  * ``libvexqr`` — a C shared library (with hand-tuned Assembly inner loops)
     that accelerates hot paths: token estimation, fuzzy-signature hashing for the
     loop detector, and ANSI stripping. Loaded via ``cffi`` if installed.
-  * A Java performance layer (``aegix-perf.jar``) used for high-throughput,
+  * A Java performance layer (``vexqr-perf.jar``) used for high-throughput,
     cross-platform fan-out (parallel tool dispatch, concurrent sub-agent
     monitoring). Bridged via ``jpype`` if installed.
 
 Everything degrades gracefully: if a native component is missing, the pure-Python
 implementation is used and the platform behaves identically (just slower on the
-hot paths). This keeps ``pip install aegix-core`` working with zero native
-build steps, while ``pip install 'aegix-core[accel]'`` unlocks the fast paths.
+hot paths). This keeps ``pip install vexqr-core`` working with zero native
+build steps, while ``pip install 'vexqr-core[accel]'`` unlocks the fast paths.
 """
 
 from __future__ import annotations
@@ -38,24 +38,24 @@ class NativeAccelerator:
     # ---- C / Assembly fast paths -------------------------------------------------
 
     def _load_c_library(self) -> ctypes.CDLL | None:
-        if os.environ.get("AEGIX_NO_NATIVE"):
+        if os.environ.get("VEXQR_NO_NATIVE"):
             return None
         names = {
-            "linux": "libaegix.so",
-            "darwin": "libaegix.dylib",
-            "win32": "aegix.dll",
+            "linux": "libvexqr.so",
+            "darwin": "libvexqr.dylib",
+            "win32": "vexqr.dll",
         }
-        lib_name = names.get(sys.platform, "libaegix.so")
+        lib_name = names.get(sys.platform, "libvexqr.so")
         here = Path(__file__).resolve().parent.parent / "accel"
         candidates = [here / lib_name, Path(lib_name)]
         for path in candidates:
             try:
                 if path.exists():
                     lib = ctypes.CDLL(str(path))
-                    lib.aegix_estimate_tokens.restype = ctypes.c_uint64
-                    lib.aegix_estimate_tokens.argtypes = [ctypes.c_char_p, ctypes.c_size_t]
-                    lib.aegix_fnv1a.restype = ctypes.c_uint64
-                    lib.aegix_fnv1a.argtypes = [ctypes.c_char_p, ctypes.c_size_t]
+                    lib.vexqr_estimate_tokens.restype = ctypes.c_uint64
+                    lib.vexqr_estimate_tokens.argtypes = [ctypes.c_char_p, ctypes.c_size_t]
+                    lib.vexqr_fnv1a.restype = ctypes.c_uint64
+                    lib.vexqr_fnv1a.argtypes = [ctypes.c_char_p, ctypes.c_size_t]
                     _log.info("loaded native accelerator: %s", path.name)
                     return lib
             except OSError as exc:  # pragma: no cover - platform dependent
@@ -72,7 +72,7 @@ class NativeAccelerator:
             return None
         try:
             data = text.encode("utf-8")
-            return int(self._c.aegix_estimate_tokens(data, len(data)))
+            return int(self._c.vexqr_estimate_tokens(data, len(data)))
         except Exception:  # pragma: no cover - defensive
             return None
 
@@ -86,7 +86,7 @@ class NativeAccelerator:
             return None
         try:
             data = text.encode("utf-8")
-            return int(self._c.aegix_fnv1a(data, len(data)))
+            return int(self._c.vexqr_fnv1a(data, len(data)))
         except Exception:  # pragma: no cover - defensive
             return None
 
@@ -94,13 +94,13 @@ class NativeAccelerator:
 
     def jvm_available(self) -> bool:
         """True if the Java performance layer can be bridged (jpype + jar present)."""
-        if os.environ.get("AEGIX_NO_JVM"):
+        if os.environ.get("VEXQR_NO_JVM"):
             return False
         try:
             import jpype  # type: ignore  # noqa: F401
         except Exception:
             return False
-        jar = Path(__file__).resolve().parent.parent / "perf" / "aegix-perf.jar"
+        jar = Path(__file__).resolve().parent.parent / "perf" / "vexqr-perf.jar"
         return jar.exists()
 
     def ensure_jvm(self) -> bool:
@@ -112,7 +112,7 @@ class NativeAccelerator:
         try:  # pragma: no cover - requires a real JVM + jar
             import jpype  # type: ignore
 
-            jar = Path(__file__).resolve().parent.parent / "perf" / "aegix-perf.jar"
+            jar = Path(__file__).resolve().parent.parent / "perf" / "vexqr-perf.jar"
             if not jpype.isJVMStarted():
                 jpype.startJVM(classpath=[str(jar)])
             self._jvm_ready = True

@@ -11,7 +11,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-from ..core.config import AegixConfig
+from ..core.config import VexqrConfig
 from ..core.types import Phase, TaskObject
 
 PHASE_TOOLS: dict[Phase, list[str]] = {
@@ -58,7 +58,7 @@ def infer_phases(text: str) -> list[Phase]:
 
 
 class TaskDecomposer:
-    def __init__(self, config: AegixConfig) -> None:
+    def __init__(self, config: VexqrConfig) -> None:
         self._config = config
 
     def plan(self, task: TaskObject) -> list[PlanNode]:

@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "aegix-core"
+name = "vexqr"
 version = "2.0.0"
 description = "AI-Supervised Cybersecurity Tool Orchestration Platform — Python core. Supported by TypeScript, C, and Assembly adapters/accelerators, with Java used alongside for high-throughput, cross-platform performance-critical paths. Installable via pip or bun (workspace tooling)."
 readme = "README.md"
@@ -19,6 +19,11 @@ dependencies = [
   "pyyaml>=6.0",
 ]
 
+[project.urls]
+Homepage = "https://github.com/ghulam36460/vexqr"
+Repository = "https://github.com/ghulam36460/vexqr"
+Issues = "https://github.com/ghulam36460/vexqr/issues"
+
 [project.optional-dependencies]
 accel = [
   "cffi>=1.16",      # load the C/Assembly fast-path shared library
@@ -33,10 +38,10 @@ dev = [
 ]
 
 [project.scripts]
-aegix = "aegix.cli:main"
+vexqr = "vexqr.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/aegix"]
+packages = ["src/vexqr"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

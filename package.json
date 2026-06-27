@@ -1,11 +1,20 @@
 {
-  "name": "aegix-orchestrator",
+  "name": "vexqr",
   "version": "2.0.0",
   "description": "AI-Supervised Cybersecurity Tool Orchestration Platform. A pipeline that connects any AI client to security tools (via MCP or PTY terminal automation) and supervises the worker AI in real time. Core is Python, supported by TypeScript, C, and Assembly, with Java used alongside them for performance-critical paths. This package is the TypeScript adapter/orchestration surface. The security layer is owned separately by the security team.",
   "license": "MIT",
+  "author": "ghulam",
+  "homepage": "https://github.com/ghulam36460/vexqr#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghulam36460/vexqr.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ghulam36460/vexqr/issues"
+  },
   "type": "module",
   "bin": {
-    "aegix": "dist/cli/index.js"
+    "vexqr": "dist/cli/index.js"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

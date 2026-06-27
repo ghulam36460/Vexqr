@@ -20,7 +20,7 @@ from ..supervisor.decomposer import PlanNode, TaskDecomposer
 from ..supervisor.supervisor import Supervisor
 from ..util.ids import estimate_tokens, short_id, uuid
 from ..util.logger import get_logger
-from .config import AegixConfig
+from .config import VexqrConfig
 from .events import bus
 from .reporter import build_summary
 from .types import Phase, ResultObject, TaskObject, ToolCall
@@ -34,7 +34,7 @@ _MAX_CALLS_PER_PHASE = 30
 class Orchestrator:
     def __init__(
         self,
-        config: AegixConfig,
+        config: VexqrConfig,
         adapter: ClientAdapter,
         router: TaskRouter,
         supervisor: Supervisor,

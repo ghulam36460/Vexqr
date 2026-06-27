@@ -11,15 +11,15 @@ deployment. It reflects what was actually run on this codebase.
 | TypeScript unit tests | PASS | 9/9 via `node --test` |
 | TypeScript typecheck | PASS | `tsc --noEmit` clean |
 | TypeScript build | PASS | `tsc` emits `dist/` cleanly |
-| Clean `pip install` | PASS | fresh venv, `aegix` CLI runs end-to-end |
+| Clean `pip install` | PASS | fresh venv, `vexqr` CLI runs end-to-end |
 | Python CLI dry-run | PASS | web goal → 4 phases; binary goal → 2 phases |
 | TypeScript CLI dry-run | PASS | full pipeline, prioritized findings |
 | Supervisor loop detection | PASS | fires, injects redirect, run completes, no human needed |
 | Token budget escalation | PASS | levels trigger with safety margin |
 | Phase decomposition | PASS | web vs binary routed correctly |
 | Artifact dedup / novelty | PASS | `kind:value` keying |
-| SQLite session/audit store | PASS | runs persist to `.aegix/sessions.db` |
-| Native C/Assembly accelerator | PASS | `libaegix.so` loads; pure-Python fallback otherwise |
+| SQLite session/audit store | PASS | runs persist to `.vexqr/sessions.db` |
+| Native C/Assembly accelerator | PASS | `libvexqr.so` loads; pure-Python fallback otherwise |
 
 ## Needs production configuration
 
@@ -32,7 +32,7 @@ deployment. It reflects what was actually run on this codebase.
 3. **MCP server binaries** — for real (non-simulated) MCP calls, the tool MCP servers in
    `config/registry.json` must be available.
 4. **Scope enforcement (security layer)** — owned separately by the security team. Before
-   any live deployment, target authorization (`scope.json`) must be enforced. Aegix has
+   any live deployment, target authorization (`scope.json`) must be enforced. Vexqr has
    no hard authorization boundary without it. **Only test systems you are authorized to test.**
 
 ## Recommended hardening before launch

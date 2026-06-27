@@ -10,7 +10,7 @@
  */
 
 import type { Phase, TaskObject } from '../core/types.js';
-import type { AegixConfig } from '../core/config.js';
+import type { VexqrConfig } from '../core/config.js';
 
 export interface PlanNode {
   phase: Phase;
@@ -63,7 +63,7 @@ function inferPhases(input: string): Phase[] {
 }
 
 export class TaskDecomposer {
-  constructor(private readonly config: AegixConfig) {}
+  constructor(private readonly config: VexqrConfig) {}
 
   plan(task: TaskObject): PlanNode[] {
     const phases = inferPhases(task.naturalInput);

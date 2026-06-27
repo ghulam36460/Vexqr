@@ -1,12 +1,12 @@
 # Getting Started
 
-Aegix has two cores. You can use either independently; most users start with the
+Vexqr has two cores. You can use either independently; most users start with the
 Python core.
 
 ## Requirements
 
-- **Python** >= 3.12 (for `aegix-core`)
-- **Node.js** >= 20 (for `aegix-orchestrator`)
+- **Python** >= 3.12 (for `vexqr-core`)
+- **Node.js** >= 20 (for `vexqr-orchestrator`)
 - Optional: a C toolchain and `make` (native accelerator), JDK 21+ (Java perf layer), Java 17+ (real Ghidra)
 
 ## 1. Python core (`pip`)
@@ -26,8 +26,8 @@ pip install '.[dev]'               # test dependencies
 Verify:
 
 ```bash
-aegix --help
-aegix run "check if my web app is secure" --target scanme.nmap.org --dry-run
+vexqr --help
+vexqr run "check if my web app is secure" --target scanme.nmap.org --dry-run
 ```
 
 Expected: a 4-phase run (`recon → enumeration → vuln_scan → report`) with prioritized
@@ -53,7 +53,7 @@ npm run dev -- run "check if my web app is secure" --dry-run
 
 ## 3. Connect an AI client
 
-Aegix talks to whichever AI client you already use. Credentials are read from the
+Vexqr talks to whichever AI client you already use. Credentials are read from the
 environment. Copy the example and fill in only the keys you need:
 
 ```bash
@@ -63,10 +63,10 @@ cp config/.env.example .env
 #   GEMINI_API_KEY=...
 #   OPENAI_API_KEY=...           # any OpenAI-compatible endpoint
 #   OPENAI_API_BASE=https://api.openai.com/v1
-#   AEGIX_LOG_LEVEL=info
+#   VEXQR_LOG_LEVEL=info
 ```
 
-Without any key, Aegix still runs fully in `--dry-run` / heuristic mode. Keys are only
+Without any key, Vexqr still runs fully in `--dry-run` / heuristic mode. Keys are only
 required for live MCP/terminal execution and the optional meta-AI supervisor mode.
 
 ## 4. Run the tests
@@ -83,13 +83,13 @@ npm install && npm test
 
 ```python
 import asyncio
-from aegix import Aegix
-from aegix.platform import AegixOptions
-from aegix.core.store import SessionStore
+from vexqr import Vexqr
+from vexqr.platform import VexqrOptions
+from vexqr.core.store import SessionStore
 
 async def main():
-    store = SessionStore()  # persists an audit trail to .aegix/sessions.db
-    app = Aegix(AegixOptions(client="custom", dry_run=True, store=store))
+    store = SessionStore()  # persists an audit trail to .vexqr/sessions.db
+    app = Vexqr(VexqrOptions(client="custom", dry_run=True, store=store))
     result = await app.run("check if my web app is secure", "scanme.nmap.org")
     print(result.summary)
 

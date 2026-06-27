@@ -97,12 +97,12 @@ class RunRecord:
 class SessionStore:
     """SQLite-backed run history + audit trail.
 
-    Open with a path (default ``.aegix/sessions.db``) or ``":memory:"`` for
+    Open with a path (default ``.vexqr/sessions.db``) or ``":memory:"`` for
     ephemeral use in tests. Call :meth:`subscribe` to wire it to the event bus
     so it records artifacts, tool calls and interventions automatically.
     """
 
-    def __init__(self, path: str = ".aegix/sessions.db") -> None:
+    def __init__(self, path: str = ".vexqr/sessions.db") -> None:
         self._path = path
         if path != ":memory:":
             Path(path).expanduser().parent.mkdir(parents=True, exist_ok=True)

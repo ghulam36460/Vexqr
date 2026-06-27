@@ -1,6 +1,6 @@
 # Configuration
 
-Aegix reads configuration from three places, all optional. Anything omitted falls back
+Vexqr reads configuration from three places, all optional. Anything omitted falls back
 to built-in defaults.
 
 1. `config/config.yaml` — platform behavior and supervisor tuning.
@@ -41,7 +41,7 @@ registryPath: config/registry.json
 
 The MCP tool registry maps tool names to their MCP server image/transport and trust tier.
 Official tools auto-run; community/experimental tools prompt before running. List the
-active registry at any time with `aegix registry`.
+active registry at any time with `vexqr registry`.
 
 ## Environment variables (`.env`)
 
@@ -52,7 +52,7 @@ ANTHROPIC_API_KEY=        # Claude: supervisor "ai" mode + LLM fallback parser
 GEMINI_API_KEY=
 OPENAI_API_KEY=           # any OpenAI-compatible model
 OPENAI_API_BASE=https://api.openai.com/v1
-AEGIX_LOG_LEVEL=info   # debug | info | warn | error
+VEXQR_LOG_LEVEL=info   # debug | info | warn | error
 ```
 
 `.env` is git-ignored; only `.env.example` is committed.

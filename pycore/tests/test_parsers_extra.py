@@ -1,6 +1,6 @@
-from aegix.terminal.parser import parse_tool_output
-from aegix.terminal.simulator import simulate_tool_output
-from aegix.util.ids import fnv1a
+from vexqr.terminal.parser import parse_tool_output
+from vexqr.terminal.simulator import simulate_tool_output
+from vexqr.util.ids import fnv1a
 
 
 def test_httpx_parses_urls_and_tech():

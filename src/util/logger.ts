@@ -12,7 +12,7 @@ const COLORS: Record<LogLevel, string> = {
 };
 const RESET = '\x1b[0m';
 
-let threshold: LogLevel = (process.env.AEGIX_LOG_LEVEL as LogLevel) || 'info';
+let threshold: LogLevel = (process.env.VEXQR_LOG_LEVEL as LogLevel) || 'info';
 const useColor = process.stdout.isTTY && process.env.NO_COLOR === undefined;
 
 export function setLogLevel(level: LogLevel): void {

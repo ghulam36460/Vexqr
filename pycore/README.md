@@ -1,4 +1,4 @@
-# Aegix Core (Python)
+# Vexqr Core (Python)
 
 AI-Supervised Cybersecurity Tool Orchestration Platform — **Python core**.
 
@@ -11,10 +11,10 @@ The core is **Python**. It is supported by:
 
 - **TypeScript** adapters for MCP / IDE clients (see the repository root).
 - **C** and hand-tuned **Assembly** accelerators for hot paths (token
-  estimation, fuzzy-signature hashing) — see `src/aegix/accel`.
+  estimation, fuzzy-signature hashing) — see `src/vexqr/accel`.
 - A **Java** performance layer (JDK 21+) for high-throughput, cross-platform
   fan-out (parallel tool dispatch, concurrent sub-agent monitoring) — see
-  `src/aegix/perf`.
+  `src/vexqr/perf`.
 
 Everything degrades gracefully: with no native components installed the platform
 runs in pure Python with identical behavior, just slower on the hot paths.
@@ -35,48 +35,48 @@ pip install '.[dev]'          # + test dependencies
 ### Optional: build the native accelerator
 
 ```bash
-cd src/aegix/accel && make            # C + hand-tuned x86-64 Assembly
+cd src/vexqr/accel && make            # C + hand-tuned x86-64 Assembly
 # or, portable C only (any architecture):
-cd src/aegix/accel && make portable
+cd src/vexqr/accel && make portable
 ```
 
 ### Optional: build the Java performance layer (JDK 21+)
 
 ```bash
-cd src/aegix/perf
-javac -d out java/com/aegix/perf/DispatchCoordinator.java
-jar --create --file aegix-perf.jar -C out .
+cd src/vexqr/perf
+javac -d out java/com/vexqr/perf/DispatchCoordinator.java
+jar --create --file vexqr-perf.jar -C out .
 ```
 
 ## Usage
 
 ```bash
 # Run a supervised assessment (simulated, safe, no tools installed/executed)
-aegix run "check if my web app is secure" --target scanme.nmap.org --dry-run
+vexqr run "check if my web app is secure" --target scanme.nmap.org --dry-run
 
 # Emit machine-readable JSON
-aegix run "full security assessment" --target example.test --dry-run --json
+vexqr run "full security assessment" --target example.test --dry-run --json
 
 # Inspect run history and export the audit trail
-aegix history
-aegix export <task_id>
+vexqr history
+vexqr export <task_id>
 
 # Registry + native acceleration status
-aegix registry
-aegix accel
+vexqr registry
+vexqr accel
 ```
 
 Programmatic:
 
 ```python
 import asyncio
-from aegix import Aegix
-from aegix.platform import AegixOptions
-from aegix.core.store import SessionStore
+from vexqr import Vexqr
+from vexqr.platform import VexqrOptions
+from vexqr.core.store import SessionStore
 
 async def main():
-    store = SessionStore()                       # persists to .aegix/sessions.db
-    app = Aegix(AegixOptions(client="custom", dry_run=True, store=store))
+    store = SessionStore()                       # persists to .vexqr/sessions.db
+    app = Vexqr(VexqrOptions(client="custom", dry_run=True, store=store))
     result = await app.run("check if my web app is secure", "scanme.nmap.org")
     print(result.summary)
 

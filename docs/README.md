@@ -1,6 +1,6 @@
-# Aegix Documentation
+# Vexqr Documentation
 
-Aegix is an **AI-Supervised Cybersecurity Tool Orchestration Platform**. It connects any
+Vexqr is an **AI-Supervised Cybersecurity Tool Orchestration Platform**. It connects any
 AI client (Claude, Gemini, Copilot, GitLab Duo, Cursor, Codex, or a custom
 OpenAI-compatible model) to security tools — through **MCP servers** when available, or
 through **PTY terminal automation** as a fallback — and runs a real-time **AI Supervisor**
@@ -10,12 +10,12 @@ that keeps the worker AI from looping, wasting tokens, or wandering.
 
 | Package | Path | Language | Distribution |
 | ------- | ---- | -------- | ------------ |
-| `aegix-core` 2.0.0 | `pycore/` | Python (core) | **pip** |
-| `aegix-orchestrator` 2.0.0 | repo root | TypeScript (adapter/CLI) | **npm / bun** |
+| `vexqr-core` 2.0.0 | `pycore/` | Python (core) | **pip** |
+| `vexqr-orchestrator` 2.0.0 | repo root | TypeScript (adapter/CLI) | **npm / bun** |
 
 > The security layer (scope enforcement, risk gating, authorization) is owned and
 > implemented separately by the security team and is intentionally not part of these
-> packages. **Only run Aegix against systems you are explicitly authorized to test.**
+> packages. **Only run Vexqr against systems you are explicitly authorized to test.**
 
 ## Documentation index
 
@@ -33,5 +33,5 @@ Both test suites pass and both cores run end-to-end:
 - Python core: **23/23** tests pass (`pytest`).
 - TypeScript adapter: **9/9** tests pass (`node --test`).
 - `tsc` typecheck and build: clean.
-- Clean `pip install` into a fresh virtualenv: succeeds, `aegix` CLI runs.
+- Clean `pip install` into a fresh virtualenv: succeeds, `vexqr` CLI runs.
 - Supervisor loop detection: fires, injects a redirect, run completes with no human in the loop.

@@ -1,10 +1,10 @@
-"""Aegix CLI — reference host application.
+"""Vexqr CLI — reference host application.
 
 Usage:
-  aegix run "<goal>" --target <host> [--dry-run] [--client <id>]
+  vexqr run "<goal>" --target <host> [--dry-run] [--client <id>]
                         [--yes] [--demo-loop <tool>] [--verbose]
-  aegix registry
-  aegix accel        Show native accelerator / Java performance layer status
+  vexqr registry
+  vexqr accel        Show native accelerator / Java performance layer status
 """
 
 from __future__ import annotations
@@ -19,12 +19,12 @@ from .core.config import load_config
 from .core.events import bus
 from .core.store import SessionStore
 from .mcp.registry import McpRegistry
-from .platform import Aegix, AegixOptions
+from .platform import Vexqr, VexqrOptions
 from .supervisor.escalation import EscalationRequest
 from .util.accel import accel
 from .util.logger import set_log_level
 
-_DEFAULT_DB = ".aegix/sessions.db"
+_DEFAULT_DB = ".vexqr/sessions.db"
 
 
 def _wire_live_log(stream=sys.stdout) -> None:
@@ -60,7 +60,7 @@ def _prompt(question: str) -> bool:
 
 async def _cmd_run(args: argparse.Namespace) -> None:
     if not args.goal:
-        print('error: provide a goal, e.g. aegix run "check if my web app is secure" --target example.test')
+        print('error: provide a goal, e.g. vexqr run "check if my web app is secure" --target example.test')
         sys.exit(1)
     if args.verbose:
         set_log_level("debug")
@@ -82,8 +82,8 @@ async def _cmd_run(args: argparse.Namespace) -> None:
 
     store = None if args.no_store else SessionStore(args.db)
 
-    app = Aegix(
-        AegixOptions(
+    app = Vexqr(
+        VexqrOptions(
             client=args.client,
             dry_run=args.dry_run,
             simulate_loop_on=args.demo_loop,
@@ -153,7 +153,7 @@ def _cmd_accel(_args: argparse.Namespace) -> None:
 
 
 def main(argv: list[str] | None = None) -> None:
-    parser = argparse.ArgumentParser(prog="aegix", description="AI-Supervised Cybersecurity Tool Orchestration")
+    parser = argparse.ArgumentParser(prog="vexqr", description="AI-Supervised Cybersecurity Tool Orchestration")
     sub = parser.add_subparsers(dest="command")
 
     run = sub.add_parser("run", help="Run a supervised assessment")

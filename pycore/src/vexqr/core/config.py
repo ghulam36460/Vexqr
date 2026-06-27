@@ -28,7 +28,7 @@ class SupervisorConfig:
 
 
 @dataclass(slots=True)
-class AegixConfig:
+class VexqrConfig:
     default_max_tokens: int = 200_000
     phase_budget: dict[str, float] = field(
         default_factory=lambda: {
@@ -50,10 +50,10 @@ class AegixConfig:
     max_parallelism: int = 8
 
 
-DEFAULT_CONFIG = AegixConfig()
+DEFAULT_CONFIG = VexqrConfig()
 
 
-def _coerce(base: AegixConfig, raw: dict[str, Any]) -> AegixConfig:
+def _coerce(base: VexqrConfig, raw: dict[str, Any]) -> VexqrConfig:
     sup = base.supervisor
     raw_sup = raw.get("supervisor") or {}
     sup = replace(
@@ -75,7 +75,7 @@ def _coerce(base: AegixConfig, raw: dict[str, Any]) -> AegixConfig:
     )
 
 
-def load_config(path: str = "config/config.yaml") -> AegixConfig:
+def load_config(path: str = "config/config.yaml") -> VexqrConfig:
     abs_path = Path(os.getcwd()) / path
     if not abs_path.exists():
         _log.warning("config not found at %s, using defaults", path)
@@ -93,7 +93,7 @@ def load_config(path: str = "config/config.yaml") -> AegixConfig:
         return DEFAULT_CONFIG
 
 
-def _validate(cfg: AegixConfig) -> None:
+def _validate(cfg: VexqrConfig) -> None:
     total = sum(cfg.phase_budget.values())
     if abs(total - 1.0) > 0.01:
         _log.warning("phaseBudget fractions sum to %.2f, expected ~1.0", total)

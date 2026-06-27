@@ -1,5 +1,5 @@
 /**
- * Core domain types for the Aegix orchestration platform.
+ * Core domain types for the Vexqr orchestration platform.
  *
  * These are the internal "lingua franca" of the whole system. Every AI client
  * adapter (L1) normalizes its native protocol into a TaskObject, and every

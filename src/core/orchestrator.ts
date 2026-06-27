@@ -19,7 +19,7 @@ import { TaskDecomposer, type PlanNode } from '../supervisor/decomposer.js';
 import { Supervisor } from '../supervisor/supervisor.js';
 import { TaskRouter } from '../router/router.js';
 import type { ClientAdapter } from '../adapters/types.js';
-import type { AegixConfig } from './config.js';
+import type { VexqrConfig } from './config.js';
 import type { Phase, ResultObject, TaskObject, ToolCall } from './types.js';
 
 const log = createLogger('orchestrator');
@@ -28,7 +28,7 @@ const log = createLogger('orchestrator');
 const MAX_CALLS_PER_PHASE = 30;
 
 export interface OrchestratorDeps {
-  config: AegixConfig;
+  config: VexqrConfig;
   adapter: ClientAdapter;
   router: TaskRouter;
   supervisor: Supervisor;

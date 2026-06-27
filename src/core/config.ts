@@ -24,7 +24,7 @@ export interface SupervisorConfig {
   tokenSafetyMargin: number;
 }
 
-export interface AegixConfig {
+export interface VexqrConfig {
   defaultMaxTokens: number;
   /** Per-phase fraction of the total token budget. Must sum to ~1.0. */
   phaseBudget: Record<string, number>;
@@ -34,7 +34,7 @@ export interface AegixConfig {
   registryPath: string;
 }
 
-export const DEFAULT_CONFIG: AegixConfig = {
+export const DEFAULT_CONFIG: VexqrConfig = {
   defaultMaxTokens: 200_000,
   phaseBudget: {
     recon: 0.15,
@@ -69,7 +69,7 @@ function deepMerge<T>(base: T, override: Partial<T>): T {
   return out as T;
 }
 
-export function loadConfig(path = 'config/config.yaml'): AegixConfig {
+export function loadConfig(path = 'config/config.yaml'): VexqrConfig {
   const abs = resolve(process.cwd(), path);
   if (!existsSync(abs)) {
     log.warn(`config not found at ${path}, using defaults`);
@@ -77,7 +77,7 @@ export function loadConfig(path = 'config/config.yaml'): AegixConfig {
   }
   try {
     const raw = readFileSync(abs, 'utf8');
-    const parsed = YAML.parse(raw) as Partial<AegixConfig>;
+    const parsed = YAML.parse(raw) as Partial<VexqrConfig>;
     const merged = deepMerge(DEFAULT_CONFIG, parsed ?? {});
     validate(merged);
     log.info(`loaded config from ${path}`);
@@ -88,7 +88,7 @@ export function loadConfig(path = 'config/config.yaml'): AegixConfig {
   }
 }
 
-function validate(cfg: AegixConfig): void {
+function validate(cfg: VexqrConfig): void {
   const sum = Object.values(cfg.phaseBudget).reduce((a, b) => a + b, 0);
   if (Math.abs(sum - 1) > 0.01) {
     log.warn(`phaseBudget fractions sum to ${sum.toFixed(2)}, expected ~1.0`);

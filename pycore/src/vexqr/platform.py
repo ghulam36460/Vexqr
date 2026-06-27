@@ -1,6 +1,6 @@
 """Public entry point — assembles the layers into a ready-to-run platform.
 
-Construct a ``Aegix`` with a config and a set of host callbacks (MCP confirm +
+Construct a ``Vexqr`` with a config and a set of host callbacks (MCP confirm +
 human gate), then ``await app.run(goal, target)``.
 
 The security layer (scope, risk gating, audit) is intentionally omitted: it is
@@ -15,7 +15,7 @@ from typing import Any, Awaitable, Callable
 
 from .adapters.base import ClientAdapter
 from .adapters.generic import GenericAdapter
-from .core.config import AegixConfig, load_config
+from .core.config import VexqrConfig, load_config
 from .core.orchestrator import Orchestrator
 from .core.reporter import risk_score
 from .core.store import RunRecord, SessionStore
@@ -34,8 +34,8 @@ async def _default_confirm(_prompt: str) -> bool:
 
 
 @dataclass(slots=True)
-class AegixOptions:
-    config: AegixConfig | None = None
+class VexqrOptions:
+    config: VexqrConfig | None = None
     client: SourceClient = "custom"
     dry_run: bool | None = None
     confirm_mcp: Callable[[str], Awaitable[bool]] = _default_confirm
@@ -45,9 +45,9 @@ class AegixOptions:
     store: SessionStore | None = None
 
 
-class Aegix:
-    def __init__(self, options: AegixOptions | None = None) -> None:
-        opts = options or AegixOptions()
+class Vexqr:
+    def __init__(self, options: VexqrOptions | None = None) -> None:
+        opts = options or VexqrOptions()
         self.config = opts.config or load_config()
         if opts.dry_run is not None:
             self.config.dry_run = opts.dry_run
